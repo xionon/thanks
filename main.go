@@ -18,7 +18,11 @@ func init() {
 }
 
 func main() {
-	_, err := http.PostForm("http://localhost:3000/messages", url.Values{"message[recipient]": {recipient}, "message[body]": {message}})
+  route := "http://localhost:3000/messages"
+  email := os.Getenv("THANKS_EMAIL")
+  token := os.Getenv("THANKS_TOKEN")
+
+	_, err := http.PostForm(route, url.Values{"message[recipient]": {recipient}, "message[body]": {message}, "format": {"json"}, "email": {email}, "token": {token}})
 
 	if err != nil {
 		fmt.Println("Uh-oh, we ran into an error sending your thank-you!")
